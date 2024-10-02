@@ -11,14 +11,19 @@ const Slider = () => {
     new Date(evtA.date) < new Date(evtB.date) ? -1 : 1
   );
   const nextCard = () => {
-    setTimeout(
-      () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0), // correction ajout de -1 pour éviter l'erreur de l'index
-      5000
-    );
+    // Vérifie si byDateDesc est défini avant d'exécuter le setTimeout
+    if (byDateDesc) {
+      setTimeout(
+        // correction ajout de -1 pour éviter l'erreur de l'index
+        () => setIndex(index < byDateDesc.length - 1 ? index + 1 : 0),
+        5000
+      );
+    }
   };
+  // Utiliser useEffect pour appeler nextCard à chaque changement de slide
   useEffect(() => {
     nextCard();
-  });
+  }, [index, byDateDesc]); // Ajout des dépendances pour éviter les rendus inutiles
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (
@@ -45,7 +50,7 @@ const Slider = () => {
                   key={`${event.id}`}
                   type="radio"
                   name="radio-button"
-                  checked={index === radioIdx}  // correction idx to index
+                  checked={index === radioIdx} // correction idx to index
                 />
               ))}
             </div>
