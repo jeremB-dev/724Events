@@ -1,13 +1,18 @@
-import { useCallback, useState } from "react";
+import { useCallback, useState, useRef } from "react"; // ajout du hook useRef
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
 import Select from "../../components/Select";
 import Button, { BUTTON_TYPES } from "../../components/Button";
 
-const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500); })
+const mockContactApi = () =>
+  new Promise((resolve) => {
+    setTimeout(resolve, 500);
+  });
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
+  const formRef = useRef(null);  // Création d'une référence pour le formulaire
+
   const sendContact = useCallback(
     async (evt) => {
       evt.preventDefault();
@@ -16,6 +21,8 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
+        onSuccess(); // Appel de la fonction onSuccess après un envoi réussi
+        formRef.current.reset(); // Réinitialiser le formulaire
       } catch (err) {
         setSending(false);
         onError(err);
@@ -23,8 +30,9 @@ const Form = ({ onSuccess, onError }) => {
     },
     [onSuccess, onError]
   );
+
   return (
-    <form onSubmit={sendContact}>
+    <form ref={formRef} onSubmit={sendContact}>
       <div className="row">
         <div className="col">
           <Field placeholder="" label="Nom" />
@@ -56,11 +64,11 @@ const Form = ({ onSuccess, onError }) => {
 Form.propTypes = {
   onError: PropTypes.func,
   onSuccess: PropTypes.func,
-}
+};
 
 Form.defaultProps = {
   onError: () => null,
   onSuccess: () => null,
-}
+};
 
 export default Form;
