@@ -1,5 +1,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/require-default-props */
+
 import { useState } from "react";
 import PropTypes from "prop-types";
 
@@ -7,10 +9,10 @@ import "./style.scss";
 
 const Select = ({
   selection,
-  onChange,
+  onChange = () => null,
   name,
-  titleEmpty,
-  label,
+  titleEmpty = false,
+  label = "",
   type = "normal",
 }) => {
   const [value, setValue] = useState();
@@ -99,3 +101,5 @@ Select.defaultProps = {
 }
 
 export default Select;
+/* eslint-enable react/require-default-props */
+

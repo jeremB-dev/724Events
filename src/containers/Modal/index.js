@@ -1,9 +1,15 @@
+/* eslint-disable react/require-default-props */
+
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Icon from "../../components/Icon";
 import "./style.scss";
 
-const Modal = ({ opened, Content, children }) => {
+const Modal = ({ 
+  opened = false, 
+  Content, 
+  children 
+}) => {
   const [isOpened, setIsOpened] = useState(opened);
   return (
     <>
@@ -28,12 +34,13 @@ const Modal = ({ opened, Content, children }) => {
 
 Modal.defaultProps = {
   opened: false,
-}
+};
 
 Modal.propTypes = {
   opened: PropTypes.bool,
   Content: PropTypes.node.isRequired,
   children: PropTypes.func.isRequired,
-}
+};
 
 export default Modal;
+/* eslint-enable react/require-default-props */

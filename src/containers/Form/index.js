@@ -1,3 +1,5 @@
+/* eslint-disable react/require-default-props */
+
 import { useCallback, useState, useRef } from "react"; // ajout du hook useRef
 import PropTypes from "prop-types";
 import Field, { FIELD_TYPES } from "../../components/Field";
@@ -9,9 +11,9 @@ const mockContactApi = () =>
     setTimeout(resolve, 500);
   });
 
-const Form = ({ onSuccess, onError }) => {
+const Form = ({ onSuccess = () => null, onError = () => null }) => {
   const [sending, setSending] = useState(false);
-  const formRef = useRef(null);  // Création d'une référence pour le formulaire
+  const formRef = useRef(null); // Création d'une référence pour le formulaire
 
   const sendContact = useCallback(
     async (evt) => {
@@ -72,3 +74,4 @@ Form.defaultProps = {
 };
 
 export default Form;
+/* eslint-enable react/require-default-props */
