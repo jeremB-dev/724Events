@@ -179,6 +179,9 @@ footer {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  border: 2px solid $primary; /* Ajout d'une bordure */
+  border-radius: 8px; /* Ajout d'un arrondi aux coins */
+  background-color: #fff; /* Couleur de fond blanche */
   div {
     text-align: center;
     margin-bottom: 16px;
@@ -188,5 +191,5 @@ footer {
   p {
     max-width: 360px;
   }
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.8); /* Ajustement de l'ombre pour plus de relief */
 }
