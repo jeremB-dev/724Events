@@ -92,13 +92,6 @@ Select.propTypes = {
   type: PropTypes.string,
 }
 
-Select.defaultProps = {
-  onChange: () => null,
-  titleEmpty: false,
-  label: "",
-  type: "normal",
-  name: "select",
-}
 
 export default Select;
 /* eslint-enable react/require-default-props */

@@ -23,9 +23,5 @@ PeopleCard.propTypes = {
   position: PropTypes.string.isRequired,
 };
 
-PeopleCard.defaultProps = {
-  imageAlt: "",
-};
-
 export default PeopleCard;
 /* eslint-enable react/require-default-props */

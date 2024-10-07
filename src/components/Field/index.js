@@ -53,12 +53,6 @@ Field.propTypes = {
   label: PropTypes.string,
   placeholder: PropTypes.string,
 };
-Field.defaultProps = {
-  label: "",
-  placeholder: "",
-  type: FIELD_TYPES.INPUT_TEXT,
-  name: "field-name",
-};
 
 export default Field;
 /* eslint-enable react/require-default-props */

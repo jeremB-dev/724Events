@@ -22,6 +22,7 @@ const Modal = ({
               type="button"
               data-testid="close-modal"
               onClick={() => setIsOpened(false)}
+              
             >
               <Icon name="close" />
             </button>
@@ -30,10 +31,6 @@ const Modal = ({
       )}
     </>
   );
-};
-
-Modal.defaultProps = {
-  opened: false,
 };
 
 Modal.propTypes = {

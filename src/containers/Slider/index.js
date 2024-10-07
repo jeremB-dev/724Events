@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { useData } from "../../contexts/DataContext";
-import { getMonth } from "../../helpers/Date";
-
+import getMonth from '../../helpers/Date';
 import "./style.scss";
+
 
 const Slider = () => {
   const { data } = useData();
@@ -24,6 +24,7 @@ const Slider = () => {
   useEffect(() => {
     nextCard();
   }, [index, byDateDesc]); // Ajout des dépendances pour éviter les rendus inutiles
+  
   return (
     <div className="SlideCardList">
       {byDateDesc?.map((event, idx) => (

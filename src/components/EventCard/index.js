@@ -1,6 +1,9 @@
 /* eslint-disable react/require-default-props */
 import PropTypes from "prop-types";
-import { getMonth } from "../../helpers/Date";
+import getMonth from '../../helpers/Date';
+
+// Votre code ici
+
 
 import "./style.scss";
 

@@ -147,9 +147,6 @@ const Logo = ({ size = "small" }) => (
 Logo.propTypes = {
   size: PropTypes.string,
 }
-Logo.defaultProps = {
-  size: 'small'
-}
 
 export default Logo;
 /* eslint-enable react/require-default-props */

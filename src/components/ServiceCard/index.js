@@ -19,10 +19,6 @@ ServiceCard.propTypes = {
   children: PropTypes.node.isRequired,
 };
 
-ServiceCard.defaultProps = {
-  imageAlt: "image",
-};
-
 export default ServiceCard;
 /* eslint-enable react/require-default-props */
 
