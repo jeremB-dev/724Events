@@ -27,37 +27,35 @@ const Slider = () => {
   
   return (
     <div className="SlideCardList">
-      {byDateDesc?.map((event, idx) => (
-        <>
-          <div
-            key={event.title}
-            className={`SlideCard SlideCard--${
-              index === idx ? "display" : "hide"
-            }`}
-          >
-            <img src={event.cover} alt="forum" />
-            <div className="SlideCard__descriptionContainer">
-              <div className="SlideCard__description">
-                <h3>{event.title}</h3>
-                <p>{event.description}</p>
-                <div>{getMonth(new Date(event.date))}</div>
+      {byDateDesc?.map((event,idx) => ( // Utilise la méthode map pour parcourir le tableau byDateDesc
+          <div key={event.title}>  {/* Conteneur pour chaque carte avec une clé unique basée sur le titre de l’événement */} 
+            <div className={`SlideCard SlideCard--${
+                index === idx ? "display" : "hide"}`}>
+              <img src={event.cover} alt="forum" />
+              <div className="SlideCard__descriptionContainer">
+                <div className="SlideCard__description">
+                  <h3>{event.title}</h3>
+                  <p>{event.description}</p>
+                  <div>{getMonth(new Date(event.date))}</div>
+                </div>
+              </div>
+            </div>
+            <div className="SlideCard__paginationContainer">
+              <div className="SlideCard__pagination">
+                {byDateDesc.map((radioDot, radioIdx) => ( // Parcourt le tableau byDateDesc et crée des boutons radio pour chaque élément.
+                  <input
+                    key={`${radioDot.title}`} // Crée un bouton radio pour chaque élément, avec l’attribut checked défini si l’index correspond à radioIdx, et rend le champ en lecture seule
+                    type="radio"
+                    name="radio-button"
+                    checked={index === radioIdx} // correction idx vers index
+                    readOnly
+                  />
+                ))}
               </div>
             </div>
           </div>
-          <div className="SlideCard__paginationContainer">
-            <div className="SlideCard__pagination">
-              {byDateDesc.map((_, radioIdx) => (
-                <input
-                  key={`${event.id}`}
-                  type="radio"
-                  name="radio-button"
-                  checked={index === radioIdx} // correction idx to index
-                />
-              ))}
-            </div>
-          </div>
-        </>
-      ))}
+        )
+      )}
     </div>
   );
 };
