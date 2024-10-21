@@ -19,7 +19,7 @@ const Form = ({ onSuccess = () => null, onError = () => null }) => {
     async (evt) => {
       evt.preventDefault();
       setSending(true);
-      // We try to call mockContactApi
+      // essai appel mockContactApi
       try {
         await mockContactApi();
         setSending(false);

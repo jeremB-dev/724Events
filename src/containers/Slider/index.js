@@ -23,7 +23,7 @@ const Slider = () => {
   // Utiliser useEffect pour appeler nextCard à chaque changement de slide
   useEffect(() => {
     nextCard();
-  }, [index, byDateDesc]); // Ajout des dépendances pour éviter les rendus inutiles
+  }, [index, byDateDesc]); // Ajout des dépendances pour éviter les rendus inutiles de nextCard
   
   return (
     <div className="SlideCardList">

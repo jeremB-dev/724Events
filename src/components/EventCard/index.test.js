@@ -19,7 +19,7 @@ describe("When an event card is created", () => {
         label="test label"
       />
     );
-    const imageElement = screen.getByAltText("image-alt-text");
+    const imageElement = screen.getByAltText("image-alt-text"); // Récupération de l'élément image par son attribut alt
     expect(imageElement).toBeInTheDocument();
   });
 

@@ -10,22 +10,25 @@ import "./style.css";
 const PER_PAGE = 9;
 
 const EventList = () => {
-  const { data, error } = useData();
-  const [type, setType] = useState(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const { data, error } = useData(); // Récupération des données et des erreurs via le hook useData
+  const [type, setType] = useState(); // État pour stocker le type d'événement sélectionné
+  const [currentPage, setCurrentPage] = useState(1); // État pour stocker la page actuelle
 
-  // Filtrer les événements en fonction du type sélectionné
-  const filteredEvents = (
-    (!type
-      ? data?.events
-      : data?.events.filter((event) => event.type === type)) || []
-  );
+  // Ajout d'une logique pour filtrer les événements par type en fonction de la valeur de l'input
+  const events = type
+    ? data?.events.filter((event) => event.type === type) // Filtrage des événements par type si un type est sélectionné
+    : data?.events; // Sinon, utilisation de tous les événements
 
-  // Pagination des événements filtrés
-  const paginatedEvents = filteredEvents.slice(
-    (currentPage - 1) * PER_PAGE,
-    currentPage * PER_PAGE
-  );
+  // Filtrage des événements pour la pagination
+  const filteredEvents = (events || []).filter((event, index) => {
+    if (
+      (currentPage - 1) * PER_PAGE <= index && // Vérification si l'index de l'événement est dans la plage de la page actuelle
+      PER_PAGE * currentPage > index
+    ) {
+      return true; // Inclure l'événement dans les événements filtrés
+    }
+    return false; // Exclure l'événement des événements filtrés
+  });
 
   const changeType = (evtType) => {
     setCurrentPage(1);
@@ -33,9 +36,8 @@ const EventList = () => {
   };
 
   // Calculer le nombre de pages en fonction des événements filtrés
-  const pageNumber = Math.ceil(filteredEvents.length / PER_PAGE);
-
-  const typeList = new Set(data?.events.map((event) => event.type));
+  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1; // Calcul du nombre de pages en fonction du nombre d'événements filtrés
+  const typeList = new Set(data?.events.map((event) => event.type)); // Création d'une liste de types d'événements uniques
 
   return (
     <>
@@ -50,7 +52,7 @@ const EventList = () => {
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
           <div id="events" className="ListContainer">
-            {paginatedEvents.map((event) => (
+            {filteredEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
                 {({ setIsOpened }) => (
                   <EventCard
@@ -65,7 +67,7 @@ const EventList = () => {
             ))}
           </div>
           <div className="Pagination">
-            {[...Array(pageNumber)].map((_, n) => (
+            {[...Array(pageNumber || 0)].map((_, n) => (
               // eslint-disable-next-line react/no-array-index-key
               <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
                 {n + 1}
