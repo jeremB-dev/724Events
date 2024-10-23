@@ -20,14 +20,16 @@ const EventList = () => {
     : data?.events; // Sinon, utilisation de tous les événements
 
   // Filtrage des événements pour la pagination
-  const filteredEvents = (events || []).filter((event, index) => {
+  const filteredEvents = (
+    (!type ? events : events.filter(event => event.type === type)) || []
+  ).filter((_event, index) => {
     if (
-      (currentPage - 1) * PER_PAGE <= index && // Vérification si l'index de l'événement est dans la plage de la page actuelle
+      (currentPage - 1) * PER_PAGE <= index && 
       PER_PAGE * currentPage > index
     ) {
-      return true; // Inclure l'événement dans les événements filtrés
+      return true; 
     }
-    return false; // Exclure l'événement des événements filtrés
+    return false;
   });
 
   const changeType = (evtType) => {

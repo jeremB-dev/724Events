@@ -11,9 +11,9 @@ const mockContactApi = () =>
     setTimeout(resolve, 500);
   });
 
-const Form = ({ onSuccess = () => null, onError = () => null }) => {
+const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
-  const formRef = useRef(null); // Création d'une référence pour le formulaire
+  const formRef = useRef(null); // Création d'une référence pour le formulaire (pour le réinitialiser)
 
   const sendContact = useCallback(
     async (evt) => {
@@ -46,7 +46,12 @@ const Form = ({ onSuccess = () => null, onError = () => null }) => {
             type="large"
             titleEmpty
           />
-          <Field placeholder="" label="Email" />
+          <Field 
+          placeholder="" 
+          label="Email" 
+          // type="email"
+          // required    champs obligatoire pour envoi du message
+          />
           <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
             {sending ? "En cours" : "Envoyer"}
           </Button>

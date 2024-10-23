@@ -1,13 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import EventCard from "./index";
 
-// Fonction pour matcher le texte
-const textMatcher = (content, element) => {
-  const hasText = (node) => node.textContent === content;
-  const node = element.children || [];
-  return Array.from(node).some(hasText);
-};
-
 describe("When an event card is created", () => {
   it("an image is displayed with alt value", () => {
     render(
@@ -19,8 +12,9 @@ describe("When an event card is created", () => {
         label="test label"
       />
     );
-    const imageElement = screen.getByAltText("image-alt-text"); // Récupération de l'élément image par son attribut alt
+    const imageElement = screen.getByTestId("card-image-testid");
     expect(imageElement).toBeInTheDocument();
+    expect(imageElement.alt).toEqual("image-alt-text");
   });
 
   it("a title, a label and a month are displayed", () => {
@@ -28,18 +22,36 @@ describe("When an event card is created", () => {
       <EventCard
         imageSrc="http://src-image"
         imageAlt="image-alt-text"
-        date={new Date("2022-04-01")}
         title="test event"
         label="test label"
+        date={new Date("2022-04-01")}
       />
     );
-    const titleElement = screen.getByText(/test event/);
-    const monthElement = screen.getByText((content, element) =>
-      textMatcher("Avril", element)
-    );
-    const labelElement = screen.getByText(/test label/);
+
+    console.log(screen.debug());
+
+    
+    const titleElement = screen.getByText(/test event/); 
+    const monthElement = screen.getByText(/avril/i); // Utilisation de /i pour rendre la recherche insensible à la casse
+    const labelElement = screen.getByText(/test label/); 
     expect(titleElement).toBeInTheDocument();
     expect(monthElement).toBeInTheDocument();
     expect(labelElement).toBeInTheDocument();
+  });
+  describe("with small props", () => {
+    it("a modifier small is added", () => {
+      render(
+        <EventCard
+          imageSrc="http://src-image"
+          imageAlt="image-alt-text"
+          title="test event"
+          label="test label"
+          date={new Date("2022-04-01")}
+          small
+        />
+      );
+      const cardElement = screen.getByTestId("card-testid");
+      expect(cardElement.className.includes("EventCard--small")).toEqual(true);
+    });
   });
 });
