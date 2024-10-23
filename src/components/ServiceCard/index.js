@@ -20,5 +20,4 @@ ServiceCard.propTypes = {
 };
 
 export default ServiceCard;
-/* eslint-enable react/require-default-props */
 

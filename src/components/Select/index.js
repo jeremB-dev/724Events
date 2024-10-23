@@ -94,5 +94,5 @@ Select.propTypes = {
 
 
 export default Select;
-/* eslint-enable react/require-default-props */
+
 

@@ -24,4 +24,3 @@ PeopleCard.propTypes = {
 };
 
 export default PeopleCard;
-/* eslint-enable react/require-default-props */

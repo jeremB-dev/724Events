@@ -67,4 +67,4 @@ Button.propTypes = {
 };
 
 export default Button;
-/* eslint-enable react/require-default-props */
+

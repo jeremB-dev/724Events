@@ -39,4 +39,3 @@ EventCard.propTypes = {
 };
 
 export default EventCard;
-/* eslint-enable react/require-default-props */

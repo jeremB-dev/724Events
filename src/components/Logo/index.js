@@ -150,5 +150,4 @@ Logo.propTypes = {
 }
 
 export default Logo;
-/* eslint-enable react/require-default-props */
 

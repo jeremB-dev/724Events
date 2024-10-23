@@ -55,4 +55,3 @@ Field.propTypes = {
 };
 
 export default Field;
-/* eslint-enable react/require-default-props */
