@@ -4,7 +4,6 @@ import Select from "../../components/Select";
 import { useData } from "../../contexts/DataContext";
 import Modal from "../Modal";
 import ModalEvent from "../ModalEvent";
-
 import "./style.css";
 
 const PER_PAGE = 9;
@@ -20,14 +19,12 @@ const EventList = () => {
     : data?.events; // Sinon, utilisation de tous les événements
 
   // Filtrage des événements pour la pagination
-  const filteredEvents = (
-    (!type ? events : events.filter(event => event.type === type)) || []
-  ).filter((_event, index) => {
+  const filteredEvents = (events || []).filter((event, index) => {
     if (
-      (currentPage - 1) * PER_PAGE <= index && 
+      (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
     ) {
-      return true; 
+      return true;
     }
     return false;
   });
@@ -37,9 +34,8 @@ const EventList = () => {
     setType(evtType);
   };
 
-  // Calculer le nombre de pages en fonction des événements filtrés
-  const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1; // Calcul du nombre de pages en fonction du nombre d'événements filtrés
-  const typeList = new Set(data?.events.map((event) => event.type)); // Création d'une liste de types d'événements uniques
+  const pageNumber = events ? Math.ceil(events.length / PER_PAGE) : 0; // Calcul du nombre de pages en fonction du nombre d'événements filtrés
+  const typeList = new Set(data?.events.map((event) => event.type));
 
   return (
     <>
@@ -68,14 +64,18 @@ const EventList = () => {
               </Modal>
             ))}
           </div>
-          <div className="Pagination">
-            {[...Array(pageNumber || 0)].map((_, n) => (
-              // eslint-disable-next-line react/no-array-index-key
-              <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
-                {n + 1}
-              </a>
-            ))}
-          </div>
+          {/* Affichage de la pagination seulement s'il y a plus d'une page */}
+          {pageNumber > 1 && filteredEvents.length > 0 && (
+            <div className="Pagination">
+              {[...Array(pageNumber || 0)].map((_, n) => (
+                // eslint-disable-next-line react/no-array-index-key
+                <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)} className={currentPage === n + 1 ? "active" : ""}
+                >
+                  {n + 1}
+                </a>
+              ))}
+            </div>
+          )}
         </>
       )}
     </>

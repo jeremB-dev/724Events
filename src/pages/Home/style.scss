@@ -119,6 +119,10 @@ p {
     text-decoration: none;
     display: inline;
     margin: 2px;
+    &.active {
+      font-weight: bold;
+      font-size: 20px;
+    }
   }
   margin-bottom: 50px;
 }
