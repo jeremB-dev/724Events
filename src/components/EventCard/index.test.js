@@ -28,8 +28,6 @@ describe("When an event card is created", () => {
       />
     );
 
-    console.log(screen.debug());
-
     
     const titleElement = screen.getByText(/test event/); 
     const monthElement = screen.getByText(/avril/i); // Utilisation de /i pour rendre la recherche insensible à la casse
